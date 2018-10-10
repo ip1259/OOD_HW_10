@@ -1,4 +1,3 @@
-package main;
 import java.util.Scanner;
 import java.math.BigDecimal;
 
@@ -7,35 +6,35 @@ public class HW1 {
 	public static void main(String[] args)
 	{
 		Scanner keyboard = new Scanner(System.in);
-		Item item_1 = new Item();
-		Item item_2 = new Item();
-		Item item_3 = new Item();
+		Item item[] = new Item[3];
 		double subtotal = 0.0;
 		double total = 0.0;
 		double tax = 0.0;
 		
-		System.out.println("Input name of item 1:");
-		item_1.setName(keyboard.nextLine());
-		System.out.println("Input quantity of item 1:");
-		item_1.setQuantity(Integer.valueOf(keyboard.nextLine()));
-		System.out.println("Input price of item 1:");
-		item_1.setPrice(Double.valueOf(keyboard.nextLine()));
+		for(int i =0;i<3;i++)
+		{
+			try
+			{
+				item[i] = new Item();
+				System.out.printf("Input name of item %d:\n",i+1);
+				item[i].setName(keyboard.nextLine());
+				System.out.printf("Input quantity of item %d:\n",i+1);
+				item[i].setQuantity(Integer.valueOf(keyboard.nextLine()));
+				System.out.printf("Input price of item %d:\n",i+1);
+				item[i].setPrice(Double.valueOf(keyboard.nextLine()));
+			}
+			catch(NumberFormatException e)
+			{
+				System.out.println("資料輸入有誤情重新輸入");
+				i--;
+			}
+		}
 		
-		System.out.println("Input name of item 2:");
-		item_2.setName(keyboard.nextLine());
-		System.out.println("Input quantity of item 2:");
-		item_2.setQuantity(Integer.valueOf(keyboard.nextLine()));
-		System.out.println("Input price of item 2:");
-		item_2.setPrice(Double.valueOf(keyboard.nextLine()));
+		for(Item i : item)
+		{
+			subtotal = subtotal + i.getTotal();
+		}
 		
-		System.out.println("Input name of item 3:");
-		item_3.setName(keyboard.nextLine());
-		System.out.println("Input quantity of item 3:");
-		item_3.setQuantity(Integer.valueOf(keyboard.nextLine()));
-		System.out.println("Input price of item 3:");
-		item_3.setPrice(Double.valueOf(keyboard.nextLine()));
-		
-		subtotal = item_1.getTotal() + item_2.getTotal() + item_3.getTotal() ;
 		tax = new BigDecimal(subtotal * 0.0625).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 		total = subtotal + tax ;
 		
@@ -43,9 +42,10 @@ public class HW1 {
 		System.out.println("Your bill:");
 		System.out.println("");
 		System.out.printf("%-30s%-10s%-10s%-10s\n", "Item", "Quantity", "Price", "Total");
-		item_1.printItemLine();
-		item_2.printItemLine();
-		item_3.printItemLine();
+		for(Item i: item)
+		{
+			System.out.println(i.toString());
+		}
 		System.out.println("");
 		System.out.printf("%-50s%-10.2f\n", "Subtotal", subtotal);
 		System.out.printf("%-50s%-10.2f\n", "6.25% scales tax", tax);

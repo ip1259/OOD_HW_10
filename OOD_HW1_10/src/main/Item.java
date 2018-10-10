@@ -1,4 +1,3 @@
-package main;
 public class Item 
 {
 
@@ -51,9 +50,9 @@ public class Item
 		price = dPrice;
 		total = quantity * price ;
 	}
-	public void printItemLine()
+	public String toString()
 	{
-		System.out.printf("%-30s%-10d%-10.2f%-10.2f\n", this.getName(), this.getQuantity(), this.getPrice(), this.getTotal());
+		return String.format("%-30s%-10d%-10.2f%-10.2f", name, quantity, price, total);
 	}
 
 }
